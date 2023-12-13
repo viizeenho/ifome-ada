@@ -1,5 +1,6 @@
 package com.adaproject.ifood.exception.handler;
 
+import com.adaproject.ifood.exception.EntregadorNaoEncontradoException;
 import com.adaproject.ifood.exception.NumberDocumentException;
 import com.adaproject.ifood.exception.RenavamDuplicadoException;
 import com.adaproject.ifood.exception.ValidarDataException;
@@ -27,6 +28,12 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(ValidarDataException.class)
     public ResponseEntity<ErrorResponse> validarDataException(ValidarDataException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request", ex.getMessage(), "/ifood/entregadores");
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntregadorNaoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> notFoundEntregador(EntregadorNaoEncontradoException ex) {
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request", ex.getMessage(), "/ifood/entregadores");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }

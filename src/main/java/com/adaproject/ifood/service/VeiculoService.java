@@ -34,18 +34,18 @@ public class VeiculoService {
 
     public Veiculo cadastrarVeiculo(@Valid VeiculoDTO veiculoDTO) {
         Veiculo veiculo= new Veiculo();
+        Entregador entregador = new Entregador();
         BeanUtils.copyProperties(veiculoDTO, veiculo);
 //        Veiculo veiculo = veiculoMapper.toVeiculo(veiculoDTO);
 
-//        if (veiculoDTO.getEntregadorId() != null){
-//            Entregador entregador = entregadorService.encontrarEntregadorPorId(veiculoDTO.getEntregadorId());
-//
-//            if (entregador == null) {
-//                throw new EntregadorNaoEncontradoException("Entregador não encontrado com ID: " + veiculoDTO.getEntregadorId());
-//            }
-//
-//            veiculo.setEntregador(entregador);
-//        }
+        if (veiculoDTO.getEntregadorId() != null){
+             entregador = entregadorService.encontrarEntregadorPorId(veiculoDTO.getEntregadorId());
+
+            if (entregador == null) {
+                throw new EntregadorNaoEncontradoException("Entregador não encontrado com ID: " + veiculoDTO.getEntregadorId());
+            }
+            veiculo.setEntregador(entregador);
+        }
 
         validarAnoModelo(veiculoDTO);
         validarRenavam(veiculoDTO);
