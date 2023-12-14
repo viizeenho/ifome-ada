@@ -7,7 +7,6 @@ import com.adaproject.ifood.model.Entregador;
 import com.adaproject.ifood.model.dto.EntregadorDTO;
 import com.adaproject.ifood.repository.EntregadorRepository;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,11 @@ public class EntregadorService {
         return entregadorRepository.save(entregador);
     }
 
+    public void deletarEntregadorPorId(Long entregadorId) {
+        Entregador entregador = encontrarEntregadorPorId(entregadorId);
+        entregadorRepository.delete(entregador);
+    }
+
     public List<Entregador> getAllEntregadores() {
         return entregadorRepository.findAll();
     }
@@ -53,7 +57,7 @@ public class EntregadorService {
                 }
                 break;
             case RG:
-                if (numeroDocumento.length() != 7) {
+                if (numeroDocumento.length() != 9) {
                     throw new NumberDocumentException("RG deve conter 7 dígitos.");
                 }
                 break;

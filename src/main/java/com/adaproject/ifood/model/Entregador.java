@@ -18,13 +18,9 @@ public class Entregador {
     @NotBlank
     private String nome;
     @NotBlank
-    @Pattern(regexp = "\\d{11}", message = "CPF deve conter 11 dígitos.")
     private String numeroDocumento;
-
     private TipoDocumento tipoDocumento; // Pode ser CPF, RG, CNH, etc.
-
     private LocalDate dataVencimentoCNH;
-
     @JsonIgnore
     @OneToOne(mappedBy = "entregador", cascade = CascadeType.ALL)
     private Veiculo veiculo;

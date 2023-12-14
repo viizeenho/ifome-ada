@@ -48,4 +48,10 @@ public class EntregadorController {
 
         }
     }
+
+    @DeleteMapping("/{entregadorId}")
+    public ResponseEntity<Void> deletarEntregador(@PathVariable Long entregadorId) {
+        entregadorService.deletarEntregadorPorId(entregadorId);
+        return ResponseEntity.noContent().build();
+    }
 }
